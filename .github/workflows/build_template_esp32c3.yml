@@ -57,6 +57,12 @@ jobs:
       run: |
         rm -rf build
         rm -rf managed_components
+
+     # Set UART baudrate to 9600 and disable echo
+      - name: Set default SDK config
+        run: |
+          echo "CONFIG_AT_UART_DEFAULT_BAUD=9600" >> sdkconfig.defaults
+          echo "CONFIG_AT_CMD_ECHO_SUPPORT=n" >> sdkconfig.defaults
     
     
     - name: Install compilation environment
