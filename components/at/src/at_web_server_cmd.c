@@ -222,7 +222,7 @@ static esp_err_t at_web_try_connect(uint8_t *ssid, uint8_t *password, uint8_t *b
         if (bits & ESP_AT_WEB_WIFI_CONNECTED_BIT) {
             ESP_LOGI(TAG, "connected to ap SSID:%s", temp_ssid);
             
-            esp_at_port_write_data(nssid,strlen(nssid);
+            esp_at_port_write_data(nssid,strlen(nssid));
             esp_at_port_write_data(sta.ssid,strlen(sta.ssid));
             esp_at_port_write_data(npwd,strlen(npwd));
             esp_at_port_write_data(sta.password,strlen(sta.password));
