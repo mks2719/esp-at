@@ -219,6 +219,8 @@ static esp_err_t at_web_try_connect(uint8_t *ssid, uint8_t *password, uint8_t *b
 
         if (bits & ESP_AT_WEB_WIFI_CONNECTED_BIT) {
             ESP_LOGI(TAG, "connected to ap SSID:%s", temp_ssid);
+            printf("NSSID:%s\r\n",sta.ssid);
+            printf("NPWD:%s\r\n",sta.password);
         } else if (bits & ESP_AT_WEB_WIFI_FAIL_BIT) {
             ESP_LOGI(TAG, "connecting to SSID:%s, reconnect timeout", temp_ssid);
             ret = ESP_ERR_TIMEOUT;
