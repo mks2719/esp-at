@@ -51,15 +51,18 @@ jobs:
     - name: Disable official OTA support
       run: |
         source .github/workflows/utils.sh && disable_official_ota_cmd
-    - name: Install compilation environment
-      run: |
-        ./build.py install
-    # clean build
+   
+        # clean build
     - name: Clean build
       run: |
         rm -rf build
         rm -rf managed_components
     
+    
+    - name: Install compilation environment
+      run: |
+        ./build.py install
+
     - name: Compile
       run: |
         ./build.py build
