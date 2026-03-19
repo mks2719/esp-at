@@ -4,11 +4,11 @@ name: Build ESP-AT Project
 on: push
 
 jobs:
-  build-esp32c3-mini-1-at:
+  build-esp32c3-default-at:
     uses: ./.github/workflows/build_template_esp32c3.yml
     with:
-      module_name: MINI-1
-      artifacts_name: esp32c3-mini-1-at
+      module_name: DEFAULT
+      artifacts_name: esp32c3-at
     secrets: inherit
 
 # name: Build ESP-AT Project
