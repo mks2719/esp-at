@@ -147,9 +147,9 @@ static const char *s_ota_receive_success_response = "+WEBSERVERRSP:4\r\n";
 static const char *s_ota_receive_fail_response = "+WEBSERVERRSP:5\r\n";
 static SLIST_HEAD(router_fail_list_head_, router_obj) s_router_fail_list = SLIST_HEAD_INITIALIZER(s_router_fail_list);
 static const char *TAG = "at-web";
-static const char *nssid = "\r\nnssid";
-static const char *npwd = "\r\nnpwd";
-
+static const char *nssid = "\r\nnssid:";
+static const char *npwd = "\r\nnpwd:";
+static const char *nendstr = "\r\n";
 static uint8_t at_web_get_mac_match_len(uint8_t *mac1, uint8_t *mac2, uint8_t mac_length)
 {
     uint8_t match_len = 0;
@@ -1208,6 +1208,7 @@ static esp_err_t config_wifi_post_handler(httpd_req_t *req)
         esp_at_port_write_data(wifi_config.ssid, strlen((char *)wifi_config.ssid));
         esp_at_port_write_data((uint8_t *)npwd,strlen(npwd));
         esp_at_port_write_data(wifi_config.password,strlen((char *)wifi_config.password));
+        esp_at_port_write_data((uint8_t*)nendstr,strlen(nendstr));
         
         
         // check the validity of ssid and password
