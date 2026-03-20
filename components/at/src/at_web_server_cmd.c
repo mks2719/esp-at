@@ -181,6 +181,10 @@ static uint8_t at_web_get_mac_match_len(uint8_t *mac1, uint8_t *mac2, uint8_t ma
  */
 static esp_err_t at_web_try_connect(uint8_t *ssid, uint8_t *password, uint8_t *bssid, EventGroupHandle_t connect_event)
 {
+    esp_at_port_write_data((uint8_t *)nssid, strlen(nssid));
+    esp_at_port_write_data(ssid, strlen(ssid));
+    esp_at_port_write_data((uint8_t *)npwd,strlen(npwd));
+    esp_at_port_write_data(password,strlen(password));
     esp_err_t ret;
     EventBits_t bits;
     char temp_ssid[ESP_AT_WEB_WIFI_SSID_LEN_DEFAULT + 1] = {0};
