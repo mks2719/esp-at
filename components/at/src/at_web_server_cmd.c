@@ -1209,7 +1209,7 @@ static esp_err_t config_wifi_post_handler(httpd_req_t *req)
         esp_at_port_write_data((uint8_t *)npwd,strlen(npwd));
         esp_at_port_write_data(wifi_config.password,strlen((char *)wifi_config.password));
         esp_at_port_write_data((uint8_t*)nendstr,strlen(nendstr));
-        
+        esp_at_port_write_data((uint8_t*)"\r\n",2);
         
         // check the validity of ssid and password
         if (strlen((char *)&wifi_config.ssid) == 0) {
