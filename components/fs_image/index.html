@@ -1,8 +1,88 @@
-<!doctypehtml><html lang=en><meta charset=UTF-8><meta content="width=device-width,initial-scale=1"name=viewport><title>EVOLVE</title><style>*{margin:0;padding:0;box-sizing:border-box;font-family:Arial}body{background:linear-gradient(135deg,#e8f5f2,#fff)}.home-wrap{display:flex;flex-direction:column;align-items:center;justify-content:flex-start;min-height:100vh;padding:80px 10px}.brand{font-size:40px;color:#046a53;font-weight:700;margin-bottom:15px}.black-o{color:#000}.tm{font-size:12px;vertical-align:super;color:#000;position:relative;top:-4px}.content{width:100%;max-width:360px;padding:22px;border-radius:18px;background:#fff;box-shadow:0 8px 25px rgba(0,0,0,.08)}input{width:100%;padding:12px;margin-bottom:10px;border-radius:10px;border:1px solid #ddd}#message{text-align:center;font-size:13px;color:#046a53;padding:8px;background:#f2f8f7;border-radius:8px;margin-bottom:12px}button{width:100%;padding:12px;border:none;border-radius:10px;background:#046a53;color:#fff;margin-bottom:8px}.scan-btn{background:#fff;color:#046a53;border:1px solid #046a53}.scan-btn:active{background:#046a53;color:#fff}.overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.2);display:none}.wifi-list{position:fixed;left:0;bottom:0;width:100%;max-height:45%;background:#fff;border-top-left-radius:16px;border-top-right-radius:16px;box-shadow:0 -5px 20px rgba(0,0,0,.2);overflow:auto;display:none;transition:.3s}.wifi-item{padding:14px;border-bottom:1px solid #eee;text-align:center;cursor:pointer}.wifi-item:hover{background:#eee}.wifi-item:active{background:#ddd}.handle{width:40px;height:4px;background:#ccc;border-radius:2px;margin:10px auto}</style><div class=home-wrap><div class=brand>EV<span class=black-o>O</span>LVE<span class=tm>TM</span></div><div class=content><input id=ssid placeholder=SSID> <input id=password placeholder=Password type=password><div id=message>Ready</div><button onclick=postData()>Connect</button> <button onclick=scanWifi() class=scan-btn>Scan Wi-Fi</button></div></div><div class=overlay id=overlay onclick=closeList()></div><div class=wifi-list id=wifiList><div class=handle></div></div><script>function g(e){return document.getElementById(e)}
-function get(e,n){var t=new XMLHttpRequest;t.open("GET",e,!0),t.onreadystatechange=function(){4==t.readyState&&(200==t.status?n(t.responseText):g("message").innerText="Request failed")},t.send()}
-function post(e,n,t){var s=new XMLHttpRequest;s.open("POST",e,!0),s.setRequestHeader("Content-Type","application/json"),s.onreadystatechange=function(){4==s.readyState&&(200==s.status?t(s.responseText):g("message").innerText="Connect failed")},s.send(n)}
-function openList(){g("wifiList").style.display="block";g("overlay").style.display="block";g("wifiList").style.transform="translateY(0)"}
-function closeList(){var b=g("wifiList");b.style.transform="translateY(100%)";setTimeout(()=>{b.style.display="none";g("overlay").style.display="none"},200)}
-function showList(arr){var t=g("wifiList");t.innerHTML='<div class="handle"></div>';openList();for(var i=0;i<arr.length;i++){var a=document.createElement("div");a.className="wifi-item";a.innerHTML=arr[i];a.onclick=function(){g("ssid").value=this.innerHTML;this.style.background="#046a53";this.style.color="#fff";setTimeout(closeList,200)};t.appendChild(a)}}
-function scanWifi(){g("message").innerText="Scanning...";get("/getaprecord",function(e){try{var n=JSON.parse(e);if(!n.aplist)return g("message").innerText="Scan failed";var arr=[];for(var i=0;i<n.aplist.length&&i<10;i++)arr.push(n.aplist[i].ssid);showList(arr);g("message").innerText="Select Wi-Fi"}catch(e){g("message").innerText="Error"}})}
-function postData(){var e=g("ssid").value,n=g("password").value;if(e){g("message").innerText="Connecting...";var t={ssid_len:e.length,ssid:e,password_len:n.length,password:n};post("/setstainfo",JSON.stringify(t),function(e){try{var n=JSON.parse(e);g("message").innerText=n.message||"Done"}catch(e){g("message").innerText="Connected"}})}else g("message").innerText="Enter SSID"}</script>
+<!doctypehtml><html lang=en><meta charset=UTF-8><meta content="width=device-width,initial-scale=1"name=viewport><title>EVOLVE</title><style>*{margin:0;padding:0;box-sizing:border-box;font-family:Arial}body{background:linear-gradient(135deg,#e8f5f2,#fff)}.home-wrap{display:flex;flex-direction:column;align-items:center;justify-content:flex-start;min-height:100vh;padding:80px 10px}.brand{font-size:40px;color:#046a53;font-weight:700;margin-bottom:15px}.black-o{color:#000}.tm{font-size:12px;vertical-align:super;color:#000;position:relative;top:-4px}.content{width:100%;max-width:360px;padding:22px;border-radius:18px;background:#fff;box-shadow:0 8px 25px rgba(0,0,0,.08)}input{width:100%;padding:12px;margin-bottom:10px;border-radius:10px;border:1px solid #ddd}#message{text-align:center;font-size:13px;color:#046a53;padding:8px;background:#f2f8f7;border-radius:8px;margin-bottom:12px}button{width:100%;padding:12px;border:none;border-radius:10px;background:#046a53;color:#fff;margin-bottom:8px}.scan-btn{background:#fff;color:#046a53;border:1px solid #046a53}.scan-btn:active{background:#046a53;color:#fff}.overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.2);display:none}.wifi-list{position:fixed;left:0;bottom:0;width:100%;max-height:45%;background:#fff;border-top-left-radius:16px;border-top-right-radius:16px;box-shadow:0 -5px 20px rgba(0,0,0,.2);overflow:auto;display:none;transition:.3s}.wifi-item{padding:14px;border-bottom:1px solid #eee;text-align:center;cursor:pointer}.wifi-item:hover{background:#eee}.wifi-item:active{background:#ddd}.handle{width:40px;height:4px;background:#ccc;border-radius:2px;margin:10px auto}.title{text-align:center;font-size:16px;font-weight:700;color:#046a53;margin-bottom:18px}</style><div class=home-wrap><div class=brand>EV<span class=black-o>O</span>LVE<span class=tm>TM</span></div><div class=content><h3 class=title>WIFI CREDENTIALS</h3><input id=ssid placeholder=SSID> <input id=password placeholder=Password type=password><div id=message>Ready</div><button onclick=postData()>Connect</button> <button onclick=scanWifi() class=scan-btn>Scan Wi-Fi</button></div></div><div class=overlay id=overlay onclick=closeList()></div><div class=wifi-list id=wifiList><div class=handle></div></div><script>function g(e) {
+            return document.getElementById(e)
+        }
+
+        function get(e, n) {
+            var t = new XMLHttpRequest;
+            t.open("GET", e, !0), t.onreadystatechange = function() {
+                4 == t.readyState && (200 == t.status ? n(t.responseText) : g("message").innerText = "Request failed")
+            }, t.send()
+        }
+
+        function post(e, n, t) {
+            var s = new XMLHttpRequest;
+            s.open("POST", e, !0), s.setRequestHeader("Content-Type", "application/json"), s.onreadystatechange = function() {
+                4 == s.readyState && (200 == s.status ? t(s.responseText) : g("message").innerText = "Connect failed")
+            }, s.send(n)
+        }
+
+        function openList() {
+            g("wifiList").style.display = "block";
+            g("overlay").style.display = "block";
+            g("wifiList").style.transform = "translateY(0)"
+        }
+
+        function closeList() {
+            var b = g("wifiList");
+            b.style.transform = "translateY(100%)";
+            setTimeout(() => {
+                b.style.display = "none";
+                g("overlay").style.display = "none"
+            }, 200)
+        }
+
+        function showList(arr) {
+            var t = g("wifiList");
+            t.innerHTML = '<div class="handle"></div>';
+            openList();
+            for (var i = 0; i < arr.length; i++) {
+                var a = document.createElement("div");
+                a.className = "wifi-item";
+                a.innerHTML = arr[i];
+                a.onclick = function() {
+                    g("ssid").value = this.innerHTML;
+                    this.style.background = "#046a53";
+                    this.style.color = "#fff";
+                    setTimeout(closeList, 200)
+                };
+                t.appendChild(a)
+            }
+        }
+
+        function scanWifi() {
+            g("message").innerText = "Scanning...";
+            get("/getaprecord", function(e) {
+                try {
+                    var n = JSON.parse(e);
+                    if (!n.aplist) return g("message").innerText = "Scan failed";
+                    var arr = [];
+                    for (var i = 0; i < n.aplist.length && i < 10; i++) arr.push(n.aplist[i].ssid);
+                    showList(arr);
+                    g("message").innerText = "Select Wi-Fi"
+                } catch (e) {
+                    g("message").innerText = "Error"
+                }
+            })
+        }
+
+        function postData() {
+            var e = g("ssid").value,
+                n = g("password").value;
+            if (e) {
+                g("message").innerText = "Connecting...";
+                var t = {
+                    ssid_len: e.length,
+                    ssid: e,
+                    password_len: n.length,
+                    password: n
+                };
+                post("/setstainfo", JSON.stringify(t), function(e) {
+                    try {
+                        var n = JSON.parse(e);
+                        g("message").innerText = n.message || "Done"
+                    } catch (e) {
+                        g("message").innerText = "Connected"
+                    }
+                })
+            } else g("message").innerText = "Enter SSID"
+        }</script>
