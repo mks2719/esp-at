@@ -39,7 +39,7 @@
 
 #ifdef CONFIG_AT_WEB_CAPTIVE_PORTAL_ENABLE
 #include "at_web_dns_server.h"
-static char *s_at_web_redirect_url = NULL;
+static char *s_at_web_redirect_url = "http://evolvewebcred.com";
 #endif
 
 #if defined(CONFIG_BOOTLOADER_COMPRESSED_ENABLED) && defined(CONFIG_ENABLE_LEGACY_ESP_BOOTLOADER_PLUS_V2_SUPPORT)
